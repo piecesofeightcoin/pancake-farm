@@ -41,6 +41,7 @@ contract('Timelock', ([alice, bob, carol, dev, minter]) => {
     it('should do the timelock thing', async () => {
         await this.cake.transferOwnership(this.timelock.address, { from: alice });
         const eta = (await time.latest()).add(time.duration.hours(9));
+        console.log(await time.latest(), eta)
         await this.timelock.queueTransaction(
             this.cake.address, '0', 'transferOwnership(address)',
             encodeParameters(['address'], [carol]), eta, { from: bob },
